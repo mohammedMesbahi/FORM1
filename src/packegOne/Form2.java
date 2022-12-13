@@ -14,7 +14,6 @@ public class Form2 {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
         frame.setVisible(true);
-        frame.pack();
 
         lblCompetationName.setText(lblCompetationName.getText() + competationName);
 
