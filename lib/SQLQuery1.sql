@@ -6,15 +6,19 @@ create table Team(
 	team_name varchar(30)
 	);
 
-create table Comptetation(
-	competation_id INT auto_increment Primary key,
-	competation_name varchar(300)
+create table competition(
+	competition_id INT auto_increment Primary key,
+	competition_name varchar(300)
 	);
+    
+insert into competition(competition_name) values('AI competition');
+insert into competition(competition_name) values('machine learning competition');
+insert into competition(competition_name) values('sisco competition');
 
-create table Competaion_participents(
-	competation_id INT,
+create table competition_participents(
+	competition_id INT,
 	team_id INT,
 	ranking INT,
-	constraint fk_competation_id FOREIGN KEY(competation_id) REFERENCES comptetation(competation_id),
+	constraint fk_competition_id FOREIGN KEY(competition_id) REFERENCES competition(competition_id),
 	constraint fk_team_id FOREIGN KEY(team_id) REFERENCES Team(team_id)
 	);
