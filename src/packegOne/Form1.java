@@ -3,23 +3,34 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.List;
-
 public class Form1 {
+    //region components : Labels TextFields ..
+    //region Lables
     private JLabel lblCountry;
     private JLabel lblTeamName;
     private JLabel lblCompetationName;
     private JLabel lblRanking;
-
+    //endregion
+    //region Textfields
     private JTextField textFieldCountry;
     private JTextField textFieldTeamName;
     private JTextField textFieldRanking;
-
+    //endregion
+    //region comboBoxes
     private JComboBox comboBoxCompetitions;
+    //endregion
+    //region buttons
     private JButton btnSubmit;
+    //endregion
+    //region Panels
     private JPanel mainPanel;
+    //endregion
+    //region frames
     private final JFrame frame1 = new JFrame("Form 1");
+    //endregion
+    //endregion
 
+    //region Default constructor Form1()
     public Form1() {
 
         frame1.setContentPane(mainPanel);
@@ -27,7 +38,9 @@ public class Form1 {
         frame1.setSize(500, 300);
         frame1.setLocation(450,200);
         frame1.setVisible(true);
-        new MySqlConn();
+
+        MySqlConn.init();
+
         String[] competitions = {"AI competition", "machine learning competition", "sisco competition"};
         DefaultComboBoxModel cb = new DefaultComboBoxModel(competitions);
         comboBoxCompetitions.setModel(cb);
@@ -36,6 +49,7 @@ public class Form1 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == btnSubmit) {
+
                     frame1.dispose();
 
                     try {
@@ -64,4 +78,5 @@ public class Form1 {
             }
         });
     }
+    //endregion
 }

@@ -2,19 +2,26 @@ package packegOne;
 import java.sql.*;
 
 public class MySqlConn{
+
     private static Connection conn;
-    String url = "jdbc:mysql://localhost/java_project1";
-    String user = "root";
-    String password = "root";
+
+    //region Default constructor
     public MySqlConn(){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    }
+    //endregion
+    public static void init(){
+        String url = "jdbc:mysql://localhost/java_project1";
+        String user = "root";
+        String password = "root";
+        if (conn == null){
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection(url, user, password);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
-
     public  static Integer getCompetitionId(String competitionName) throws SQLException {
         String qr = "select competition_id from competition where competition_name = \"" + competitionName + "\"";
         int competition_id = -1;
@@ -27,9 +34,7 @@ public class MySqlConn{
 
     }
     public static int createTeam(String country, String teamName) throws SQLException {
-
         int generatedKey = -1;
-
         String qr = "insert into Team(country,team_name) values(?,?)";
         PreparedStatement ps = conn.prepareStatement(qr, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1,country);
@@ -66,7 +71,7 @@ public class MySqlConn{
     public static ResultSet getTable(String competitionName) throws SQLException {
         Integer competition_id = MySqlConn.getCompetitionId(competitionName);
         Statement stm=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        String qry = "select team_name,ranking from competition_participants,team,competition where competition.competition_id = "+competition_id+" and competition_participants.competition_id = competition.competition_id and competition_participants.team_id = team.team_id;";
+        String qry = "select team_name,ranking from competition_participants,Team,competition where competition.competition_id = "+competition_id+" and competition_participants.competition_id = competition.competition_id and competition_participants.team_id = Team.team_id;";
         return stm.executeQuery(qry);
     }
 }

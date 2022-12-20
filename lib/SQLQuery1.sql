@@ -15,7 +15,7 @@ insert into competition(competition_name) values('AI competition');
 insert into competition(competition_name) values('machine learning competition');
 insert into competition(competition_name) values('sisco competition');
 
-create table competition_participents(
+create table competition_participants(
 	competition_id INT,
 	team_id INT,
 	ranking INT,

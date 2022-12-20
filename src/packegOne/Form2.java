@@ -4,14 +4,20 @@ import javax.swing.*;
 import java.sql.*;
 
 public class Form2 {
+    //region components
     private JTable table1;
     private JLabel lblCompetationName;
     private JPanel panel2;
+    private JLabel lblTeamName;
+    private JLabel lblRank;
     private  JFrame frame;
+
+    //endregion
     private String competationName;
     private ResultSet res;
     private PreparedStatement stmt;
 
+    //region Default constructor
     public Form2(String competitionName) {
         frame = new JFrame("Form 2");
         frame.setContentPane(panel2);
@@ -23,7 +29,9 @@ public class Form2 {
         this.competationName = competitionName;
         loadTable(competationName);
     }
+    //endregion
 
+    //region Method to load table
     private void loadTable(String competitionName) {
         try {
             res = MySqlConn.getTable(competitionName);
@@ -33,5 +41,7 @@ public class Form2 {
         }
 
     }
+
+    //endregion
 
 }
