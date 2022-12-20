@@ -1,5 +1,7 @@
 package packegOne;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySqlConn{
 
@@ -74,4 +76,24 @@ public class MySqlConn{
         String qry = "select team_name,ranking from competition_participants,Team,competition where competition.competition_id = "+competition_id+" and competition_participants.competition_id = competition.competition_id and competition_participants.team_id = Team.team_id;";
         return stm.executeQuery(qry);
     }
+
+    public static List<String> fetchAllCompetitions() {
+        try{
+            Statement st = conn.createStatement();
+            String req ="SELECT competition_name FROM competition";
+            ResultSet rs =st.executeQuery(req);
+            List<String> competitions = new ArrayList<String>();  ;
+            competitions.add("");
+            String copetationName;
+            while(rs.next()) {
+                copetationName = rs.getString("competition_name");
+                competitions.add(copetationName);
+            }
+            return competitions;
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

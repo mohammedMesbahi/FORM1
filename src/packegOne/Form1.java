@@ -2,7 +2,11 @@ package packegOne;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Form1 {
     //region components : Labels TextFields ..
     //region Lables
@@ -41,8 +45,10 @@ public class Form1 {
 
         MySqlConn.init();
 
-        String[] competitions = {"AI competition", "machine learning competition", "sisco competition"};
-        DefaultComboBoxModel cb = new DefaultComboBoxModel(competitions);
+        List<String> competitions =new ArrayList<String>();  ;
+        competitions = MySqlConn.fetchAllCompetitions();
+
+        DefaultComboBoxModel cb = new DefaultComboBoxModel(competitions.toArray());
         comboBoxCompetitions.setModel(cb);
 
         btnSubmit.addActionListener(new ActionListener() {
